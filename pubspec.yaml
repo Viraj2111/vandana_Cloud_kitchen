@@ -7,6 +7,7 @@ environment:
   sdk: '>=2.19.6 <3.0.0'
 
 dependencies:
+  card_swiper: ^3.0.1
   flutter:
     sdk: flutter
 
@@ -15,6 +16,8 @@ dev_dependencies:
     sdk: flutter
   http:
   cupertino_icons: ^1.0.2
+  cached_network_image: ^3.3.1
+  shimmer: ^3.0.0
   dio: ^4.0.6
   dio_http_cache: ^0.3.0
   get:

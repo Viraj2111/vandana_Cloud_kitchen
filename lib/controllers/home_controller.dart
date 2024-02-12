@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:vandana/Models/banner_Data_list_model.dart';
 import 'package:vandana/Models/getStoreListData_model.dart';
 import 'package:vandana/Models/get_category_list_model.dart';
 import 'package:vandana/Models/get_item_list_model.dart';
@@ -220,6 +221,49 @@ print("Distance LIst ==> ${ditanceList}");
       log("Error location during getting category list ::: $st");
     }
   }
+  Future AddProductIntoCart(
+    ) async {
+
+    CustomLoader.openCustomLoader();
+    Map<String, String> myPayload = {
+    "user_type":"User",
+"customer_code":"VK11",
+"phone":"9325612162",
+"category_name":"Food",
+"subcategory_name":"Thali",
+"product_name":"Veg thali 140",
+"product_code":"PC4",
+"unit":"nos",
+"quantity":"2",
+"price":"140",
+"total":"280",
+"tax":" ",
+
+    };
+    var response = await HttpServices.postHttpMethod(
+        url: "https://softhubtechno.com/cloud_kitchen/api/add_cart.php",
+        payload: myPayload);
+
+    log("Add Products into cart ::: $response");
+
+    getItemListModel.value = getItemListModelFromJson(response['body']);
+
+    try {
+      if (getItemListModel.value.statusCode == "200" ||
+          getItemListModel.value.statusCode == "201") {
+        CustomLoader.closeCustomLoader();
+        // Your Statement
+      } else {
+        CustomLoader.closeCustomLoader();
+        log("Something went wrong during getting category list ::: ${getItemListModel.value.message}");
+        // Your Message
+      }
+    } catch (e, st) {
+      CustomLoader.closeCustomLoader();
+      log("Something went wrong during getting category list ::: $e");
+      log("Error location during getting category list ::: $st");
+    }
+  }
 
   Rx<GetSabjiDataModel> getSabjiDataModel = GetSabjiDataModel().obs;
 
@@ -233,6 +277,38 @@ print("Distance LIst ==> ${ditanceList}");
     log("Get sABJI response ::: $response");
 
     getSabjiDataModel.value = getSabjiDataModelFromJson(response['body']);
+
+    try {
+      if (getSabjiDataModel.value.statusCode == "200" ||
+          getSabjiDataModel.value.statusCode == "201") {
+        CustomLoader.closeCustomLoader();
+        // Your Statement
+      } else {
+        CustomLoader.closeCustomLoader();
+        log("Something went wrong during getting category list ::: ${getSabjiDataModel.value.message}");
+        // Your Message
+      }
+    } catch (e, st) {
+      CustomLoader.closeCustomLoader();
+      log("Something went wrong during getting category list ::: $e");
+      log("Error location during getting category list ::: $st");
+    }
+  }
+
+  Rx<BannerDataViewModel> bannerDataList = BannerDataViewModel().obs;
+  Future getBannersForHome() async {
+    CustomLoader.openCustomLoader();
+ Map<String, String> myPayload = {
+    "type":"Type1"
+    };
+    var response = await HttpServices.postHttpMethod(
+      url: "https://softhubtechno.com/cloud_kitchen/api/baner.php",
+      payload: myPayload,
+    );
+
+    log("Get Banner data::: $response");
+
+    bannerDataList.value = bannerDataViewModelFromJson(response['body']);
 
     try {
       if (getSabjiDataModel.value.statusCode == "200" ||

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:vandana/Models/getStoreListData_model.dart';
 import 'package:vandana/app.dart';
@@ -11,6 +12,7 @@ import 'package:vandana/controllers/home_controller.dart';
 import 'package:vandana/pages/home_screens/tifin_type.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:vandana/widget/cache_image_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    homeController.getBannersForHome();
     homeController.getCategoryList();
     homeController.getStoreDetails().whenComplete(() {
       setState(() {});
@@ -198,14 +201,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   height20,
                   Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
+                     margin: EdgeInsets.only(left: 20, right: 20),
                     height: Get.height * 0.2,
                     width: Get.width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/burger2.jpg"),
-                            fit: BoxFit.cover)),
+                    child: Obx(
+                      () => Swiper(
+                        allowImplicitScrolling: false,
+                              itemBuilder: (BuildContext context,int index){
+                                return CustomImageView(imagePathOrUrl: homeController.bannerDataList.value.bannerList![index].banerImage ?? "", radius: 10,
+                                    );
+                              },
+                              itemCount:  homeController.bannerDataList.value.bannerList?.length ?? 0,
+                              pagination: SwiperPagination(),
+                              autoplay: true,
+                              
+                              control: SwiperControl(),
+                            ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20),
@@ -265,19 +277,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           margin: EdgeInsets.all(10),
                                           height: 150,
                                           width: 150,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      homeController
+                                        child: CustomImageView(imagePathOrUrl:   homeController
                                                               .getCategoryListModel
                                                               .value
                                                               .categoryList?[
                                                                   index]
                                                               .categoryImage ??
-                                                          ""),
-                                                  fit: BoxFit.cover),
-                                              shape: BoxShape.circle,
-                                              color: appMainColor),
+                                                          "",radius: 100),
                                         ),
                                       ),
                                       height15,
