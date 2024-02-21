@@ -5,7 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:vandana/Services/storage_services.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 import 'package:vandana/utils/internet_error.dart';
 import 'package:vandana/utils/process_indicator.dart';
 import 'package:vandana/utils/repository/network_repository.dart';
@@ -21,8 +22,12 @@ class NetworkDioHttp {
   static NetworkRepository networkRepository = NetworkRepository();
 
   static Future<Map<String, String>> getHeaders() async {
-    final String? token = dataStorage.read('token');
-    log("Token :- " + dataStorage.read('token').toString());
+    String token = await StorageServices.getData(
+            dataType: StorageKeyConstant.stringType,
+            prefKey: StorageKeyConstant.token) ??
+        "";
+    ;
+    log("Token :- " + token);
     if (token != null) {
       debugPrint(
           '~~~~~~~~~~~~~~~~~~~~ SET HEADER : $token ~~~~~~~~~~~~~~~~~~~');

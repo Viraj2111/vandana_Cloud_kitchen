@@ -21,4 +21,5 @@ class StorageKeyConstant {
   static const String longitude = "longitude";
   static const String userType = "user_type";
   static const String userCode = "user_code";
+  static const String token = "token";
 }

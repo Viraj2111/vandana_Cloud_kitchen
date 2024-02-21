@@ -1,14 +1,10 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '../../components/colors.dart';
-import '../../components/common_methos.dart';
-import '../app_constants.dart';
-import '../network_dio/network_dio.dart';
+import 'package:vandana/Services/storage_services.dart';
+import 'package:vandana/components/colors.dart';
+import 'package:vandana/components/common_methos.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 
 NetworkRepository networkRepository = NetworkRepository();
 
@@ -17,13 +13,15 @@ class NetworkRepository {
       NetworkRepository._internal();
 
   factory NetworkRepository() {
-    return _networkRepository; 
+    return _networkRepository;
   }
+
   NetworkRepository._internal();
 
   FocusNode searchFocus = FocusNode();
 
   Dio dio = Dio();
+
   getCategoryData(context) async {
     try {
       final categoryResponse = await dio
@@ -40,10 +38,15 @@ class NetworkRepository {
     response,
     modelResponse,
   ) async {
+    String token = await StorageServices.getData(
+            dataType: StorageKeyConstant.stringType,
+            prefKey: StorageKeyConstant.token) ??
+        "";
+
     log("response check------>${response}---->Checked");
     if ((response['body']['status'] == 401 ||
             response['body']['status'] == 410) &&
-        dataStorage.read("token") != null) {}
+        token != "") {}
     if (response["error_description"] == null ||
         response["error_description"] == 'null') {
       if (response['body']['status'] == 200 ||
@@ -68,7 +71,11 @@ class NetworkRepository {
     //     });
     // }
     else {
-      if (dataStorage.read("token") != null) {
+      String token = await StorageServices.getData(
+              dataType: StorageKeyConstant.stringType,
+              prefKey: StorageKeyConstant.token) ??
+          "";
+      if (token != "") {
         showErrorDialog(message: response['body']['message']);
       }
     }
@@ -78,10 +85,14 @@ class NetworkRepository {
   Future<void> checkResponse2(
     response,
   ) async {
+    String token = await StorageServices.getData(
+            dataType: StorageKeyConstant.stringType,
+            prefKey: StorageKeyConstant.token) ??
+        "";
     log("response check------>2${response['body']['message']}---->Checked");
     if ((response['body']['status'] == 401 ||
             response['body']['status'] == 410) &&
-        dataStorage.read("token") != null) {}
+        token != "") {}
     if (response["error_description"] == null ||
         response["error_description"] == 'null') {
       if (response['body']['status'] == 200 ||
@@ -96,7 +107,11 @@ class NetworkRepository {
         showErrorDialog(message: response['body']['message']);
       }
     } else {
-      if (dataStorage.read("token") != null) {
+      String token = await StorageServices.getData(
+              dataType: StorageKeyConstant.stringType,
+              prefKey: StorageKeyConstant.token) ??
+          "";
+      if (token != "") {
         showErrorDialog(message: response['error_description']);
       }
     }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vandana/components/app_text_style.dart';
-import 'package:vandana/components/buttons/text_button.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:vandana/controllers/home_controller.dart';
@@ -245,7 +244,7 @@ class _TifinTypeScreenState extends State<TifinTypeScreen> {
                                               "",
                                         ));
 
-                                    homeController.onday();
+                                    homeController.onDay();
                                   },
                                   child: Obx(() => TypeSelectionWidgteScreen(
                                       tabName: homeController

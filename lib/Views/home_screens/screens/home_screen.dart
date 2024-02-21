@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                           Text(
-                                            homeController.ditanceList[index] ==
+                                            homeController.distanceList[index] ==
                                                     true
                                                 ? "Available"
                                                 : "not Available",
@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .branchList![0].branchName
                                       ? 1
                                       : 2;
-                              homeController.ditanceList[selected!] == true
+                              homeController.distanceList[selected!] == true
                                   ? setState(() {
                                       selectedValue = value;
                                     })
