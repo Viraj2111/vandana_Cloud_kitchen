@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:vandana/app.dart';
+import 'package:vandana/Services/storage_services.dart';
 import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/buttons/text_button.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/common_methos.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:vandana/Views/auth_screens/signup_screen.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 import 'package:vandana/widget/text_widgets/input_text_field_widget.dart';
 import 'package:get/get.dart';
 
@@ -24,9 +25,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController mobileController = TextEditingController();
 
   getFromLocal() async {
-    nameController.text = await dataStorages.read("user_name") ?? "";
-    emailController.text = await dataStorages.read("user_email") ?? "";
-    mobileController.text = await dataStorages.read("user_mobile") ?? "";
+    nameController.text = await StorageServices.getData(
+            dataType: StorageKeyConstant.stringType,
+            prefKey: StorageKeyConstant.userName) ??
+        "";
+    emailController.text = await StorageServices.getData(
+            dataType: StorageKeyConstant.stringType,
+            prefKey: StorageKeyConstant.userEmail) ??
+        "";
+    mobileController.text = await StorageServices.getData(
+            dataType: StorageKeyConstant.stringType,
+            prefKey: StorageKeyConstant.userMobile) ??
+        "";
   }
 
   @override
@@ -95,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             PrimaryTextButton(
               title: "Log Out",
               onPressed: () async {
-                await dataStorages.erase();
+                await StorageServices.clearData();
                 CommonMethod().getXSnackBar("Log Out",
                     "User has been loged out successfully..", greenColor);
                 Get.offAll(() => SignupScreen());

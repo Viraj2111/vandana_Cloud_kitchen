@@ -18,7 +18,6 @@ class NetworkDioHttp {
   static Circle processIndicator = Circle();
   NetworkCheck networkCheck = NetworkCheck();
   static InternetError internetError = InternetError();
-  static final dataStorage = GetStorage();
   static NetworkRepository networkRepository = NetworkRepository();
 
   static Future<Map<String, String>> getHeaders() async {

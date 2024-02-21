@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vandana/Services/storage_services.dart';
 import 'package:vandana/app.dart';
 import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/colors.dart';
@@ -6,6 +7,7 @@ import 'package:vandana/components/static_decoration.dart';
 import 'package:get/get.dart';
 import 'package:vandana/Views/mytifin_screens/cancle_tifin_screen.dart';
 import 'package:vandana/Views/mytifin_screens/select_vegetable_screen.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 import 'package:vandana/widget/dottedline_widget.dart';
 
 class MyTifinScreen extends StatelessWidget {
@@ -38,7 +40,7 @@ class MyTifinScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          " Hi, ${dataStorages.read("user_name") ?? ""}",
+                          " Hi, ${StorageServices.getData(dataType: StorageKeyConstant.stringType, prefKey: StorageKeyConstant.userName) ?? ""}",
                           style: AppTextStyle.normalBold32
                               .copyWith(color: primaryWhite),
                         ),
@@ -101,7 +103,7 @@ class MyTifinScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                            Get.to(()=> SelectVegetableScreen());
+                          Get.to(() => SelectVegetableScreen());
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -135,7 +137,7 @@ class MyTifinScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                    Get.to(()=> CancleTiffinScreen());
+                      Get.to(() => CancleTiffinScreen());
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 30),

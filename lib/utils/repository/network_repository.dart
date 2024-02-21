@@ -15,7 +15,6 @@ NetworkRepository networkRepository = NetworkRepository();
 class NetworkRepository {
   static final NetworkRepository _networkRepository =
       NetworkRepository._internal();
-  static final dataStorage = GetStorage();
 
   factory NetworkRepository() {
     return _networkRepository; 

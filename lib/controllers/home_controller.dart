@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:vandana/Models/banner_Data_list_model.dart';
@@ -7,23 +6,16 @@ import 'package:vandana/Models/getStoreListData_model.dart';
 import 'package:vandana/Models/get_category_list_model.dart';
 import 'package:vandana/Models/get_item_list_model.dart';
 import 'package:vandana/Models/get_sabji_list_model.dart';
-import 'package:vandana/app.dart';
+import 'package:vandana/Models/get_sub_category_data_model.dart';
+import 'package:vandana/Services/http_services.dart';
+import 'package:vandana/Services/storage_services.dart';
 import 'package:vandana/components/custom_loader.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 import 'package:vandana/utils/endpoint_constant.dart';
-
-import '../Models/get_sub_category_data_model.dart';
-import '../Services/http_services.dart';
 import 'package:geolocator/geolocator.dart';
 
 class HomeController extends GetxController {
   final drawerController = ZoomDrawerController();
-
-  @override
-  void onInit() async {
-    // TODO: implement onInit
-    super.onInit();
-    
-  }
 
   final RxInt selectedIndex = 0.obs;
 
@@ -43,7 +35,7 @@ class HomeController extends GetxController {
     daily.value = false;
   }
 
-  onday() {
+  onDay() {
     monthly.value = false;
     weekly.value = false;
     daily.value = true;
@@ -83,6 +75,7 @@ class HomeController extends GetxController {
 
   RxDouble calculatedDistance = 0.0.obs;
   RxDouble km = 0.0.obs;
+
   Future<void> calculateDistance(
       startLatitude, startLongitude, endLatitude, endLongitude) async {
     calculatedDistance.value = await Geolocator.distanceBetween(
@@ -95,7 +88,7 @@ class HomeController extends GetxController {
     print('Distance: ${km.value} KM');
   }
 
-List ditanceList = [];
+  List distanceList = [];
 
   Future getStoreDetails() async {
     CustomLoader.openCustomLoader();
@@ -110,18 +103,22 @@ List ditanceList = [];
     try {
       if (getStoreListData.value.statusCode == "200" ||
           getStoreListData.value.statusCode == "201") {
- for (var i = 0; i <  getStoreListData.value.branchList!.length; i++) {
-          List<String> latLongList = getStoreListData.value.branchList![i].latLong!.split(', ');
+        for (var i = 0; i < getStoreListData.value.branchList!.length; i++) {
+          List<String> latLongList =
+              getStoreListData.value.branchList![i].latLong!.split(', ');
 
-       await calculateDistance(
-              dataStorages.read('latitude'),
-              dataStorages.read('longitude'),
+          await calculateDistance(
+              StorageServices.getData(
+                  dataType: StorageKeyConstant.stringType,
+                  prefKey: StorageKeyConstant.latitude),
+              StorageServices.getData(
+                  dataType: StorageKeyConstant.stringType,
+                  prefKey: StorageKeyConstant.longitude),
               double.parse(latLongList[0]),
               double.parse(latLongList[1]));
-              ditanceList.add(km.value <= 10? true:false);
-             
- }
-print("Chek data ==> ${ditanceList}");
+          distanceList.add(km.value <= 10 ? true : false);
+        }
+        print("Chek data ==> ${distanceList}");
         CustomLoader.closeCustomLoader();
         // getStoreListData.value.branchList!.forEach((e) async{
         //   List<String> latLongList = e.latLong!.split(', ');
@@ -135,11 +132,11 @@ print("Chek data ==> ${ditanceList}");
         //         e.isAvailable = true;
         //       }
         // });
-        
+
         //       print("demo check ==> ${km.value <= 1000}");
 
         getStoreListData.refresh();
-print("Distance LIst ==> ${ditanceList}");
+        print("Distance LIst ==> ${distanceList}");
         // Your Statement
       } else {
         CustomLoader.closeCustomLoader();
@@ -157,7 +154,7 @@ print("Distance LIst ==> ${ditanceList}");
   Rx<SubCategoryDataModel> subCategoryDataModel = SubCategoryDataModel().obs;
 
   Future getSubCategory(String? categoryName) async {
-    print("pasing Name ==> ${categoryName}");
+    print("Passing Name ==> ${categoryName}");
     CustomLoader.openCustomLoader();
     Map<String, String> myPayload = {
       "category_name": categoryName.toString(),
@@ -221,24 +218,22 @@ print("Distance LIst ==> ${ditanceList}");
       log("Error location during getting category list ::: $st");
     }
   }
-  Future AddProductIntoCart(
-    ) async {
 
+  Future AddProductIntoCart() async {
     CustomLoader.openCustomLoader();
     Map<String, String> myPayload = {
-    "user_type":"User",
-"customer_code":"VK11",
-"phone":"9325612162",
-"category_name":"Food",
-"subcategory_name":"Thali",
-"product_name":"Veg thali 140",
-"product_code":"PC4",
-"unit":"nos",
-"quantity":"2",
-"price":"140",
-"total":"280",
-"tax":" ",
-
+      "user_type": "User",
+      "customer_code": "VK11",
+      "phone": "9325612162",
+      "category_name": "Food",
+      "subcategory_name": "Thali",
+      "product_name": "Veg thali 140",
+      "product_code": "PC4",
+      "unit": "nos",
+      "quantity": "2",
+      "price": "140",
+      "total": "280",
+      "tax": " ",
     };
     var response = await HttpServices.postHttpMethod(
         url: "https://softhubtechno.com/cloud_kitchen/api/add_cart.php",
@@ -296,11 +291,10 @@ print("Distance LIst ==> ${ditanceList}");
   }
 
   Rx<BannerDataViewModel> bannerDataList = BannerDataViewModel().obs;
+
   Future getBannersForHome() async {
     CustomLoader.openCustomLoader();
- Map<String, String> myPayload = {
-    "type":"Type1"
-    };
+    Map<String, String> myPayload = {"type": "Type1"};
     var response = await HttpServices.postHttpMethod(
       url: "https://softhubtechno.com/cloud_kitchen/api/baner.php",
       payload: myPayload,

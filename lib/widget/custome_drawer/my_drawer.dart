@@ -1,11 +1,13 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:vandana/Services/storage_services.dart';
 import 'package:vandana/app.dart';
 import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:get/get.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 
 class MyDrawerMenuView extends StatelessWidget {
   const MyDrawerMenuView({super.key});
@@ -33,11 +35,17 @@ class MyDrawerMenuView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                       dataStorages.read("user_name") ?? "",
+                        StorageServices.getData(
+                                dataType: StorageKeyConstant.stringType,
+                                prefKey: StorageKeyConstant.userName) ??
+                            "",
                         style: AppTextStyle.normalBold18,
                       ),
                       Text(
-                       dataStorages.read("user_email") ?? "",
+                        StorageServices.getData(
+                                dataType: StorageKeyConstant.stringType,
+                                prefKey: StorageKeyConstant.userEmail) ??
+                            "",
                         style: AppTextStyle.normalBold18.copyWith(
                             fontSize: 14, fontWeight: FontWeight.w400),
                       ),
@@ -87,7 +95,11 @@ class MyDrawerMenuView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Log Out", style: AppTextStyle.normalBold18.copyWith(color: appMainColor),),
+                  Text(
+                    "Log Out",
+                    style:
+                        AppTextStyle.normalBold18.copyWith(color: appMainColor),
+                  ),
                   width15,
                   Icon(
                     Icons.logout_outlined,
@@ -110,9 +122,11 @@ class drawerWidget extends StatelessWidget {
       required this.tabName,
       required this.iconName,
       required this.onTapp});
+
   IconData? iconName;
   String? tabName;
   void Function()? onTapp;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

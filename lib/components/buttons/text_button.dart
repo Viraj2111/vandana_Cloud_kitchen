@@ -36,12 +36,10 @@ class PrimaryTextButton extends StatelessWidget {
       child: TextButton(
         autofocus: autofocus,
         style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
+          foregroundColor: textColor ?? primaryWhite, shape: RoundedRectangleBorder(
             side: border ?? BorderSide.none,
             borderRadius: borderRadius ?? BorderRadius.circular(12),
-          ),
-          primary: textColor ?? primaryWhite,
-          onSurface: primaryWhite,
+          ), disabledForegroundColor: primaryWhite.withOpacity(0.38),
           backgroundColor: buttonColor ?? redColor,
           fixedSize: Size(
             width ?? MediaQuery.of(context).size.width / 1.16,

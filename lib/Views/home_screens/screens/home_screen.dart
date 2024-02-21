@@ -1,13 +1,11 @@
-import 'dart:math';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:vandana/Models/getStoreListData_model.dart';
-import 'package:vandana/app.dart';
+import 'package:vandana/Services/storage_services.dart';
 import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:get/get.dart';
 import 'package:vandana/components/static_decoration.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 import 'package:vandana/controllers/home_controller.dart';
 import 'package:vandana/Views/home_screens/tifin_type.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -24,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.find<HomeController>();
   String? selectedValue;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -65,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Icon(Icons.menu,
                                     color: primaryWhite, size: 40)),
                             Text(
-                              " Hi, ${dataStorages.read("user_name") ?? ""}",
+                              " Hi, ${StorageServices.getData(dataType: StorageKeyConstant.stringType, prefKey: StorageKeyConstant.userName) ?? ""}",
                               style: AppTextStyle.normalBold32
                                   .copyWith(color: primaryWhite),
                             ),
@@ -201,22 +200,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   height20,
                   Container(
-                     margin: EdgeInsets.only(left: 20, right: 20),
+                    margin: EdgeInsets.only(left: 20, right: 20),
                     height: Get.height * 0.2,
                     width: Get.width,
                     child: Obx(
                       () => Swiper(
                         allowImplicitScrolling: false,
-                              itemBuilder: (BuildContext context,int index){
-                                return CustomImageView(imagePathOrUrl: homeController.bannerDataList.value.bannerList![index].banerImage ?? "", radius: 10,
-                                    );
-                              },
-                              itemCount:  homeController.bannerDataList.value.bannerList?.length ?? 0,
-                              pagination: SwiperPagination(),
-                              autoplay: true,
-                              
-                              control: SwiperControl(),
-                            ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return CustomImageView(
+                            imagePathOrUrl: homeController.bannerDataList.value
+                                    .bannerList![index].banerImage ??
+                                "",
+                            radius: 10,
+                          );
+                        },
+                        itemCount: homeController
+                                .bannerDataList.value.bannerList?.length ??
+                            0,
+                        pagination: SwiperPagination(),
+                        autoplay: true,
+                        control: SwiperControl(),
+                      ),
                     ),
                   ),
                   Padding(
@@ -277,13 +281,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           margin: EdgeInsets.all(10),
                                           height: 150,
                                           width: 150,
-                                        child: CustomImageView(imagePathOrUrl:   homeController
-                                                              .getCategoryListModel
-                                                              .value
-                                                              .categoryList?[
-                                                                  index]
-                                                              .categoryImage ??
-                                                          "",radius: 100),
+                                          child: CustomImageView(
+                                              imagePathOrUrl: homeController
+                                                      .getCategoryListModel
+                                                      .value
+                                                      .categoryList?[index]
+                                                      .categoryImage ??
+                                                  "",
+                                              radius: 100),
                                         ),
                                       ),
                                       height15,

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vandana/app.dart';
+import 'package:vandana/Services/storage_services.dart';
 import 'package:vandana/components/app_text_style.dart';
-import 'package:vandana/components/buttons/text_button.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:vandana/Views/draweer_screen.dart';
 import 'package:vandana/Views/thankyou_screen.dart';
+import 'package:vandana/components/storage_key_constant.dart';
 import 'package:vandana/widget/text_widgets/input_text_field_widget.dart';
 
 class AddAddressScreen extends StatefulWidget {
   AddAddressScreen({super.key, required this.fromAuth});
+
   bool? fromAuth;
 
   @override
@@ -34,23 +35,45 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     String officeAddress = await officeAddressControllerLineOne.text +
         " " +
         officeAddressControllerLineTwo.text;
-    dataStorages.write("home_Address", homeAddress);
-    dataStorages.write("Home_Line_one", homeAddressLineone.text);
-    dataStorages.write("Home_Line_Two", homeAddressLineTow.text);
-    dataStorages.write("office_Address", officeAddress);
-    dataStorages.write(
-        "office_Address_Line_one", officeAddressControllerLineOne.text);
-    dataStorages.write(
-        "office_Address_Line_Two", officeAddressControllerLineTwo.text);
+    StorageServices.setData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.homeAddress,
+        stringData: homeAddress);
+    StorageServices.setData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.homeAddressLineOne,
+        stringData: homeAddressLineone.text);
+    StorageServices.setData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.homeAddressLineTwo,
+        stringData: homeAddressLineTow.text);
+    StorageServices.setData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.officeAddress,
+        stringData: officeAddress);
+    StorageServices.setData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.officeAddressLineOne,
+        stringData: officeAddressControllerLineOne.text);
+    StorageServices.setData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.officeAddressLineTwo,
+        stringData: officeAddressControllerLineTwo.text);
   }
 
   getFormLocal() {
-    homeAddressLineone.text = dataStorages.read("Home_Line_one") ?? "";
-    homeAddressLineTow.text = dataStorages.read("Home_Line_Two") ?? "";
-    officeAddressControllerLineOne.text =
-        dataStorages.read("office_Address_Line_one") ?? "";
-    officeAddressControllerLineTwo.text =
-        dataStorages.read("office_Address_Line_Two") ?? "";
+    homeAddressLineone.text = StorageServices.getData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.homeAddressLineOne);
+    homeAddressLineTow.text = StorageServices.getData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.homeAddressLineTwo);
+    officeAddressControllerLineOne.text = StorageServices.getData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.officeAddressLineOne);
+    officeAddressControllerLineTwo.text = StorageServices.getData(
+        dataType: StorageKeyConstant.stringType,
+        prefKey: StorageKeyConstant.officeAddressLineTwo);
   }
 
   @override
