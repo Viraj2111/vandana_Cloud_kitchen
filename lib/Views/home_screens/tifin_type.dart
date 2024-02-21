@@ -12,8 +12,10 @@ import 'package:vandana/widget/type_selection_widget.dart';
 class TifinTypeScreen extends StatefulWidget {
   TifinTypeScreen(
       {super.key, required this.categoryName, required this.fromTiffin});
+
   String categoryName;
   bool fromTiffin;
+
   @override
   State<TifinTypeScreen> createState() => _TifinTypeScreenState();
 }
@@ -33,10 +35,8 @@ class _TifinTypeScreenState extends State<TifinTypeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    homeController.getSubCategory(widget.categoryName).whenComplete((){
-      setState(() {
-        
-      });
+    homeController.getSubCategory(widget.categoryName).whenComplete(() {
+      setState(() {});
     });
   }
 
@@ -53,13 +53,16 @@ class _TifinTypeScreenState extends State<TifinTypeScreen> {
               backgroundColor: primaryWhite,
               automaticallyImplyLeading: true,
               leading: GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Icon(Icons.arrow_back_ios, color: appMainColor,)),
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: appMainColor,
+                  )),
               centerTitle: true,
             )
-          : null,                                              
+          : null,
       body: Stack(
         children: [
           Positioned(
@@ -77,85 +80,80 @@ class _TifinTypeScreenState extends State<TifinTypeScreen> {
                 "assets/images/leftShape.png",
               )),
           widget.fromTiffin == false
-              ?  ListView.builder(
-                     itemCount: homeController.subCategoryDataModel.value
-                            .subcategoryList?.length ??
-                        0,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.to(() => FoodDetailListScreen(
-                            
-                                    fromType: 0,
-                                    categoryName: homeController
-                                            .subCategoryDataModel
-                                            .value
-                                            .subcategoryList?[index]
-                                            .categoryName ??
-                                        "",
-                                    subcategoryName: homeController
-                                            .subCategoryDataModel
-                                            .value
-                                            .subcategoryList?[index]
-                                            .subcategoryName ??
-                                        "",
-                                  ));
-                        },
-                        child: Container(
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          height: Get.height * 0.1,
-                          width: Get.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: primaryWhite,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 3,
-                                blurRadius: 5,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    maxRadius: 30,
-                                    backgroundImage: NetworkImage(homeController
-                                            .subCategoryDataModel
-                                            .value
-                                            .subcategoryList?[index]
-                                            .subcategoryImage ??
-                                        ""),
-                                  ),
-                                  width15,
-                                  Text(
-                                    homeController
-                                            .subCategoryDataModel
-                                            .value
-                                            .subcategoryList?[index]
-                                            .subcategoryName ??
-                                        "",
-                                    style: AppTextStyle.normalSemiBold18
-                                        .copyWith(color: appMainColor),
-                                  )
-                                ],
-                              ),
-                             
-                           
-                           
-                            ],
-                          ),
+              ? ListView.builder(
+                  itemCount: homeController
+                          .subCategoryDataModel.value.subcategoryList?.length ??
+                      0,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => FoodDetailListScreen(
+                              fromType: 0,
+                              categoryName: homeController
+                                      .subCategoryDataModel
+                                      .value
+                                      .subcategoryList?[index]
+                                      .categoryName ??
+                                  "",
+                              subcategoryName: homeController
+                                      .subCategoryDataModel
+                                      .value
+                                      .subcategoryList?[index]
+                                      .subcategoryName ??
+                                  "",
+                            ));
+                      },
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        height: Get.height * 0.1,
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: primaryWhite,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 3,
+                              blurRadius: 5,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  )
-                
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  maxRadius: 30,
+                                  backgroundImage: NetworkImage(homeController
+                                          .subCategoryDataModel
+                                          .value
+                                          .subcategoryList?[index]
+                                          .subcategoryImage ??
+                                      ""),
+                                ),
+                                width15,
+                                Text(
+                                  homeController
+                                          .subCategoryDataModel
+                                          .value
+                                          .subcategoryList?[index]
+                                          .subcategoryName ??
+                                      "",
+                                  style: AppTextStyle.normalSemiBold18
+                                      .copyWith(color: appMainColor),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -258,20 +256,31 @@ class _TifinTypeScreenState extends State<TifinTypeScreen> {
                         ),
                       ],
                     ),
-                    ...List.generate(
-                        data.length, (index) => TypeText(data: data[index])),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: TypeText(data: data[index]),
+                          );
+                        },
+                      ),
+                    ),
                     Image.asset("assets/images/bottomCurve.png"),
                   ],
                 ),
-          widget.fromTiffin == false
+          (widget.fromTiffin == false)
               ? Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
                   child: homeController.subCategoryDataModel.value
-                              .subcategoryList?.first.count   ==
-                          0 ||  homeController.subCategoryDataModel.value
-                              .subcategoryList?.first.count == null
+                                  .subcategoryList?.first.count ==
+                              0 ||
+                          homeController.subCategoryDataModel.value
+                                  .subcategoryList?.first.count ==
+                              null
                       ? SizedBox()
                       : Container(
                           margin: EdgeInsets.all(20),
@@ -300,7 +309,7 @@ class _TifinTypeScreenState extends State<TifinTypeScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(()=> CartScreen());
+                                  Get.to(() => CartScreen());
                                 },
                                 child: Text(
                                   "View Cart",

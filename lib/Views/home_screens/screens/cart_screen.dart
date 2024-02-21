@@ -94,13 +94,17 @@ class _CartScreenState extends State<CartScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            homeController.subCategoryDataModel.value
-                                        .subcategoryList![index].count <=
-                                    0
-                                ? null
-                                : homeController.subCategoryDataModel.value
+                            if (homeController.subCategoryDataModel.value
+                                    .subcategoryList !=
+                                null) {
+                              if (homeController.subCategoryDataModel.value
+                                      .subcategoryList![index].count >=
+                                  0) {
+                                homeController.subCategoryDataModel.value
                                     .subcategoryList![index].count--;
-                            setState(() {});
+                                setState(() {});
+                              }
+                            }
                           },
                           child: Container(
                             height: 25,
@@ -116,19 +120,20 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         width05,
                         Text(
-                          homeController.subCategoryDataModel.value
-                                  .subcategoryList![index].count
-                                  .toString() ??
-                              "",
+                          "${homeController.subCategoryDataModel.value.subcategoryList?[index].count}",
                           style: AppTextStyle.normalBold16
                               .copyWith(color: appMainColor),
                         ),
                         width05,
                         GestureDetector(
                           onTap: () {
-                            homeController.subCategoryDataModel.value
-                                .subcategoryList![index].count++;
-                            setState(() {});
+                            if (homeController.subCategoryDataModel.value
+                                    .subcategoryList !=
+                                null) {
+                              homeController.subCategoryDataModel.value
+                                  .subcategoryList![index].count++;
+                              setState(() {});
+                            }
                           },
                           child: Container(
                             height: 25,
@@ -168,15 +173,19 @@ class _CartScreenState extends State<CartScreen> {
                 Row(
                   children: [
                     Text(
-                      "${homeController.subCategoryDataModel.value.subcategoryList!.first.count.toString()} Item |",
+                      "${homeController.subCategoryDataModel.value.subcategoryList?.first.count} Item |",
                       style: AppTextStyle.normalBold16
                           .copyWith(color: primaryWhite),
                     ),
-                    Text(
-                      "  \u{20B9} ${homeController.subCategoryDataModel.value.subcategoryList!.first.count * 80}",
-                      style: AppTextStyle.normalBold16
-                          .copyWith(color: primaryWhite),
-                    ),
+                    (homeController
+                                .subCategoryDataModel.value.subcategoryList !=
+                            null)
+                        ? Text(
+                            "  \u{20B9} ${homeController.subCategoryDataModel.value.subcategoryList!.first.count * 80}",
+                            style: AppTextStyle.normalBold16
+                                .copyWith(color: primaryWhite),
+                          )
+                        : Text(""),
                   ],
                 ),
                 GestureDetector(

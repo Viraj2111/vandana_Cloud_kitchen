@@ -121,18 +121,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                          Text(
-                                            homeController.distanceList[index] ==
-                                                    true
-                                                ? "Available"
-                                                : "not Available",
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                          // Text(
+                                          //   homeController.distanceList[index] ==
+                                          //           true
+                                          //       ? "Available"
+                                          //       :
+                                          //   "not Available",
+                                          //   style: const TextStyle(
+                                          //     fontSize: 14,
+                                          //     fontWeight: FontWeight.bold,
+                                          //     color: Colors.black,
+                                          //   ),
+                                          //   overflow: TextOverflow.ellipsis,
+                                          // ),
                                         ],
                                       ),
                                     )),
