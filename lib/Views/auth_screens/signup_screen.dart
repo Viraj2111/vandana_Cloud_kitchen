@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:vandana/app.dart';
 import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/buttons/text_button.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/common_methos.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:get/get.dart';
-import 'package:vandana/pages/add_address_screen.dart';
-import 'package:vandana/pages/auth_screens/signin_scrren.dart';
+import 'package:vandana/Views/auth_screens/login_screen.dart';
 import 'package:vandana/widget/text_widgets/input_text_field_widget.dart';
 import 'package:vandana/controllers/auth_controller.dart';
 
+class SignupScreen extends StatelessWidget {
+  SignupScreen({super.key});
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-
- 
-
-AuthenticationController authenticationController = Get.put(AuthenticationController());
+  AuthenticationController authenticationController =
+      Get.put(AuthenticationController());
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +75,19 @@ AuthenticationController authenticationController = Get.put(AuthenticationContro
                   hintText: "Email Address",
                   hintStyle: AppTextStyle.normalBold14
                       .copyWith(color: primaryBlack.withOpacity(.5)),
-                ), 
+                ),
                 customHeight(20),
                 PrimaryTextButton(
                   title: "Send Otp",
                   titleColor: primaryBlack,
-                  onPressed: ()async {
-                    if( authenticationController.nameController.text == "" || authenticationController.emailController.text =="" || authenticationController.mobileController.text == ""){
-                      CommonMethod().getXSnackBar("Error", "Please Endter Valide Data", red);
-                    }else{
-
-                   await authenticationController.sendOTPviaSignup();
+                  onPressed: () async {
+                    if (authenticationController.nameController.text == "" ||
+                        authenticationController.emailController.text == "" ||
+                        authenticationController.mobileController.text == "") {
+                      CommonMethod().getXSnackBar(
+                          "Error", "Please Endter Valide Data", red);
+                    } else {
+                      await authenticationController.getOtp();
                     }
                   },
                   width: Get.width,
@@ -98,13 +96,20 @@ AuthenticationController authenticationController = Get.put(AuthenticationContro
                 height10,
                 GestureDetector(
                   onTap: () {
-                    Get.to(()=> SignInScreen());
+                    Get.to(() => SignInScreen());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Alredy have an account? ", style: AppTextStyle.normalRegular14.copyWith(color: primaryWhite),),
-                      Text("Log In", style: AppTextStyle.normalBold14,)
+                      Text(
+                        "Alredy have an account? ",
+                        style: AppTextStyle.normalRegular14
+                            .copyWith(color: primaryWhite),
+                      ),
+                      Text(
+                        "Log In",
+                        style: AppTextStyle.normalBold14,
+                      )
                     ],
                   ),
                 )
@@ -114,6 +119,5 @@ AuthenticationController authenticationController = Get.put(AuthenticationContro
         ],
       ),
     );
-  
   }
 }

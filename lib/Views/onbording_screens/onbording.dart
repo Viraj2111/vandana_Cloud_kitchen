@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 import 'package:vandana/app.dart';
 import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/buttons/text_button.dart';
-import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
-import 'package:vandana/pages/add_address_screen.dart';
-import 'package:vandana/pages/auth_screens/login_screen.dart';
-import 'package:vandana/pages/draweer_screen.dart';
-import 'package:vandana/pages/home_screens/bottom_navigation.dart';
+import 'package:vandana/Views/add_address_screen.dart';
+import 'package:vandana/Views/auth_screens/signup_screen.dart';
+import 'package:vandana/Views/draweer_screen.dart';
 
 class OnBordingScreen extends StatelessWidget {
   const OnBordingScreen({super.key});
@@ -55,7 +53,7 @@ class OnBordingScreen extends StatelessWidget {
                 if (dataStorages.read("user_name") == null ||
                     dataStorages.read("user_email")  == null||
                     dataStorages.read("user_mobile") == null) {
-                  Get.offAll(() => LoginScreen());
+                  Get.offAll(() => SignupScreen());
                 } else if (dataStorages.read("home_Address") == " " ||
                     dataStorages.read("officeAddress") == " ") {
                   Get.offAll(() => AddAddressScreen(fromAuth: true));

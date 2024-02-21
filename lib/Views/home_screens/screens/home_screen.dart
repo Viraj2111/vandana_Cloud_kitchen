@@ -9,7 +9,7 @@ import 'package:vandana/components/colors.dart';
 import 'package:get/get.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:vandana/controllers/home_controller.dart';
-import 'package:vandana/pages/home_screens/tifin_type.dart';
+import 'package:vandana/Views/home_screens/tifin_type.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:vandana/widget/cache_image_widget.dart';

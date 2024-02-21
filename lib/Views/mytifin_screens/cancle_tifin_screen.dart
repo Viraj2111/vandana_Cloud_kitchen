@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
-import 'package:vandana/pages/thankyou_screen.dart';
+import 'package:vandana/Views/thankyou_screen.dart';
 import 'package:vandana/widget/dottedline_widget.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

@@ -5,8 +5,8 @@ import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/buttons/text_button.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
-import 'package:vandana/pages/draweer_screen.dart';
-import 'package:vandana/pages/thankyou_screen.dart';
+import 'package:vandana/Views/draweer_screen.dart';
+import 'package:vandana/Views/thankyou_screen.dart';
 import 'package:vandana/widget/text_widgets/input_text_field_widget.dart';
 
 class AddAddressScreen extends StatefulWidget {

@@ -5,7 +5,7 @@ import 'package:vandana/components/buttons/text_button.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/common_methos.dart';
 import 'package:vandana/components/static_decoration.dart';
-import 'package:vandana/pages/auth_screens/login_screen.dart';
+import 'package:vandana/Views/auth_screens/signup_screen.dart';
 import 'package:vandana/widget/text_widgets/input_text_field_widget.dart';
 import 'package:get/get.dart';
 
@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 await dataStorages.erase();
                 CommonMethod().getXSnackBar("Log Out",
                     "User has been loged out successfully..", greenColor);
-                Get.offAll(() => LoginScreen());
+                Get.offAll(() => SignupScreen());
               },
             )
           ],

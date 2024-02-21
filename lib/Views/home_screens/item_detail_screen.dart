@@ -5,7 +5,7 @@ import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:vandana/controllers/home_controller.dart';
-import 'package:vandana/pages/home_screens/billing_screen.dart';
+import 'package:vandana/Views/home_screens/billing_screen.dart';
 import 'package:vandana/widget/dottedline_widget.dart';
 import 'package:get/get.dart';
 

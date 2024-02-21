@@ -5,7 +5,7 @@ import 'package:vandana/components/common_methos.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:vandana/controllers/home_controller.dart';
 import 'package:get/get.dart';
-import 'package:vandana/pages/draweer_screen.dart';
+import 'package:vandana/Views/draweer_screen.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({super.key});

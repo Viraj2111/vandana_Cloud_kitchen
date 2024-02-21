@@ -4,8 +4,8 @@ import 'package:vandana/components/app_text_style.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:get/get.dart';
-import 'package:vandana/pages/mytifin_screens/cancle_tifin_screen.dart';
-import 'package:vandana/pages/mytifin_screens/select_vegetable_screen.dart';
+import 'package:vandana/Views/mytifin_screens/cancle_tifin_screen.dart';
+import 'package:vandana/Views/mytifin_screens/select_vegetable_screen.dart';
 import 'package:vandana/widget/dottedline_widget.dart';
 
 class MyTifinScreen extends StatelessWidget {

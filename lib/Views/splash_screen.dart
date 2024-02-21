@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vandana/all_apis_call.dart';
 import 'package:vandana/components/colors.dart';
-import 'package:vandana/pages/onbording_screens/onbording.dart';
+import 'package:vandana/Views/onbording_screens/onbording.dart';
 import 'package:vandana/utils/repository/common_repository.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:vandana/pages/splash_screen.dart';
+import 'package:vandana/Views/splash_screen.dart';
 
 import 'components/colors.dart';
 

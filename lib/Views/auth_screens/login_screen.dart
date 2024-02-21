@@ -4,7 +4,7 @@ import 'package:vandana/components/buttons/text_button.dart';
 import 'package:vandana/components/colors.dart';
 import 'package:vandana/components/static_decoration.dart';
 import 'package:vandana/controllers/auth_controller.dart';
-import 'package:vandana/pages/auth_screens/login_screen.dart';
+import 'package:vandana/Views/auth_screens/signup_screen.dart';
 import 'package:vandana/widget/text_widgets/input_text_field_widget.dart';
 import 'package:get/get.dart';
 
@@ -16,8 +16,9 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  AuthenticationController authenticationController =
+      Get.find<AuthenticationController>();
 
-AuthenticationController authenticationController = Get.find<AuthenticationController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,13 +60,12 @@ AuthenticationController authenticationController = Get.find<AuthenticationContr
                   hintStyle: AppTextStyle.normalBold14
                       .copyWith(color: primaryBlack.withOpacity(.5)),
                 ),
-                
                 customHeight(20),
                 PrimaryTextButton(
                   title: "Log In",
                   titleColor: primaryBlack,
-                  onPressed: ()async {
-                 await  authenticationController.LoginAPI();
+                  onPressed: () async {
+                    await authenticationController.LoginAPI();
                   },
                   width: Get.width,
                   buttonColor: primaryWhite,
@@ -73,13 +73,20 @@ AuthenticationController authenticationController = Get.find<AuthenticationContr
                 height10,
                 GestureDetector(
                   onTap: () {
-                    Get.to(()=> LoginScreen());
+                    Get.to(() => SignupScreen());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Don't have any account? ", style: AppTextStyle.normalRegular14.copyWith(color: primaryWhite),),
-                      Text("Sign Up", style: AppTextStyle.normalBold14,)
+                      Text(
+                        "Don't have any account? ",
+                        style: AppTextStyle.normalRegular14
+                            .copyWith(color: primaryWhite),
+                      ),
+                      Text(
+                        "Sign Up",
+                        style: AppTextStyle.normalBold14,
+                      )
                     ],
                   ),
                 )
@@ -89,6 +96,5 @@ AuthenticationController authenticationController = Get.find<AuthenticationContr
         ],
       ),
     );
-  
   }
 }
